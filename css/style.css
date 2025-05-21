@@ -617,77 +617,82 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 /* Projects Preview Section */
-.projects-preview {
+/* Projects Page Styles */
+.projects {
     padding: 5rem 10%;
-    background-color: var(--dark-grey);
+    background-color: var(--medium-grey);
 }
 
-.projects-container {
-    display: flex;
-    justify-content: center;
+.projects h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--white);
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.projects h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--orange);
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    flex-wrap: wrap;
 }
 
 .project-card {
-    background-color: var(--medium-grey);
+    background-color: var(--dark-grey);
     border-radius: 10px;
     overflow: hidden;
-    width: 350px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .project-card:hover {
     transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
 }
 
 .project-image {
+    width: 100%;
     height: 200px;
-    overflow: hidden;
-    position: relative;
+    object-fit: cover;
 }
 
-.project-image.placeholder {
-    background-color: var(--light-grey);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.project-image.placeholder i {
-    font-size: 5rem;
-    color: var(--orange);
-}
-
-.project-info {
+.project-content {
     padding: 1.5rem;
 }
 
-.project-info h3 {
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-    color: var(--white);
-}
-
-.project-info p {
-    font-size: 0.9rem;
-    color: var(--off-white);
+.project-content h3 {
+    font-size: 1.5rem;
+    color: var(--orange);
     margin-bottom: 1rem;
 }
 
-.project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+.project-content p {
+    color: var(--off-white);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
 }
 
-.project-tags span {
-    background-color: rgba(255, 107, 0, 0.2);
+.project-content a {
+    display: inline-block;
     color: var(--orange);
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.8rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.project-content a:hover {
+    color: var(--orange-light);
 }
 
 /* Footer */
