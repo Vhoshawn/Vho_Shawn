@@ -1,76 +1,609 @@
-<section id="projects">
-  <h2>Projects</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Shawn Olivier - Data Analyst</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        /* Additional styles for projects page */
+        .projects-hero {
+            padding: 120px 10% 60px;
+            background-color: var(--dark-grey);
+            text-align: center;
+        }
 
-  <div class="project">
-    <h3>Mastercard Job Simulation – Data-Driven Strategy</h3>
-    <p>
-      A virtual internship with Forage focused on analyzing customer trends for a fictional product campaign. Insights guided Mastercard's marketing and engagement strategies.
-    </p>
-    <ul>
-      <li><strong>Objective:</strong> Analyze customer transaction data to uncover insights on product adoption.</li>
-      <li><strong>Tools:</strong> Excel, SQL, PowerPoint</li>
-      <li><strong>Insight:</strong> Identified peak engagement channels and customer segments to target for future campaigns.</li>
-    </ul>
-  </div>
+        .projects-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
 
-  <div class="project">
-    <h3>Deloitte Job Simulation – Data Analysis and Risk Advisory</h3>
-    <p>
-      Participated in Deloitte's Forage job simulation to assess financial data and fraud risk.
-    </p>
-    <ul>
-      <li><strong>Objective:</strong> Perform risk analysis using Excel to support client advisory.</li>
-      <li><strong>Tools:</strong> Excel, Risk Matrix</li>
-      <li><strong>Insight:</strong> Identified high-risk areas and suggested internal controls to mitigate fraud.</li>
-    </ul>
-  </div>
+        .projects-hero p {
+            font-size: 1.3rem;
+            color: var(--off-white);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
 
-  <div class="project">
-    <h3>Tata Insights – Business Intelligence Simulation</h3>
-    <p>
-      Analyzed sales and supply chain data for Tata Group during a Forage job simulation. Delivered business recommendations to enhance performance.
-    </p>
-    <ul>
-      <li><strong>Objective:</strong> Evaluate KPIs and suggest improvements in supply chain management.</li>
-      <li><strong>Tools:</strong> Excel, Power BI</li>
-      <li><strong>Insight:</strong> Improved stock allocation and supplier efficiency using dashboard visuals.</li>
-    </ul>
-  </div>
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
 
-  <h2>Upcoming Projects</h2>
+        .filter-btn {
+            background-color: var(--medium-grey);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
 
-  <div class="project">
-    <h3>Leaf Product Usage Analysis (Google Capstone)</h3>
-    <p>
-      An upcoming project for the Google Analytics Certificate focusing on fitness data to drive product strategy.
-    </p>
-    <ul>
-      <li><strong>Objective:</strong> Analyze Fitbit user behavior and suggest product engagement improvements.</li>
-      <li><strong>Tools:</strong> R (tidyverse, ggplot2), SQL, Excel</li>
-    </ul>
-  </div>
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--orange);
+            transform: translateY(-2px);
+        }
 
-  <div class="project">
-    <h3>Gauteng Real Estate ROI Analysis</h3>
-    <p>
-      This project will identify top-performing investment areas in Gauteng using rental yield, price appreciation, and demand metrics.
-    </p>
-    <ul>
-      <li><strong>Objective:</strong> Help investors find suburbs with highest ROI.</li>
-      <li><strong>Tools:</strong> R, Excel, Stats SA, TPN Reports, Web scraping</li>
-      <li><strong>Approach:</strong> Combine public datasets and property listing data to calculate yield and growth rates.</li>
-    </ul>
-  </div>
+        .projects-main {
+            padding: 60px 10%;
+            background-color: var(--medium-grey);
+        }
 
-  <div class="project">
-    <h3>South African Unemployment Rate Analysis</h3>
-    <p>
-      A data analytics project focused on analyzing unemployment trends across provinces to uncover skills gaps and inform policy.
-    </p>
-    <ul>
-      <li><strong>Objective:</strong> Identify provinces with the highest unemployment rates and link them to education or skill shortages.</li>
-      <li><strong>Tools:</strong> R, Excel, Stats SA data, Google Data Studio</li>
-      <li><strong>Outcome:</strong> Develop interactive visuals and maps to show unemployment dynamics by region.</li>
-    </ul>
-  </div>
-</section>
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .project-card-full {
+            background-color: var(--dark-grey);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s forwards;
+        }
+
+        .project-card-full:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-card-full:nth-child(1) { animation-delay: 0.1s; }
+        .project-card-full:nth-child(2) { animation-delay: 0.2s; }
+        .project-card-full:nth-child(3) { animation-delay: 0.3s; }
+        .project-card-full:nth-child(4) { animation-delay: 0.4s; }
+        .project-card-full:nth-child(5) { animation-delay: 0.5s; }
+        .project-card-full:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .project-image-full {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, var(--light-grey), var(--medium-grey));
+        }
+
+        .project-image-full.placeholder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .project-image-full.placeholder i {
+            font-size: 4rem;
+            color: var(--orange);
+            margin-bottom: 1rem;
+        }
+
+        .project-image-full.placeholder .coming-soon {
+            color: var(--white);
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 107, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card-full:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-links .btn {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        .project-info-full {
+            padding: 2rem;
+        }
+
+        .project-info-full h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .project-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .status-completed {
+            background-color: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+        }
+
+        .status-progress {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        .status-planned {
+            background-color: rgba(108, 117, 125, 0.2);
+            color: #6c757d;
+        }
+
+        .project-info-full p {
+            font-size: 1rem;
+            color: var(--off-white);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-tags-full {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tags-full span {
+            background-color: rgba(255, 107, 0, 0.1);
+            color: var(--orange);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(255, 107, 0, 0.3);
+        }
+
+        .project-stats {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 1rem;
+            border-top: 1px solid var(--light-grey);
+            font-size: 0.9rem;
+            color: var(--off-white);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-item i {
+            color: var(--orange);
+        }
+
+        .featured-project {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--dark-grey) 0%, var(--medium-grey) 100%);
+            border: 2px solid var(--orange);
+        }
+
+        .featured-project .project-info-full {
+            padding: 2.5rem;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--orange);
+            color: var(--white);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        @media screen and (max-width: 768px) {
+            .projects-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .filter-tabs {
+                gap: 0.5rem;
+            }
+            
+            .filter-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            
+            .project-info-full {
+                padding: 1.5rem;
+            }
+            
+            .featured-project .project-info-full {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html">SO</a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="skills.html">Skills</a>
+            <a href="projects.html" class="active">Projects</a>
+            <a href="resume.html">Resume</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <!-- Projects Hero Section -->
+    <section class="projects-hero">
+        <h1 class="animate__animated animate__fadeIn">My Projects</h1>
+        <p class="animate__animated animate__fadeIn animate__delay-1s">
+            Explore my data analysis projects, from SQL queries to machine learning models and interactive dashboards
+        </p>
+        
+        <!-- Filter Tabs -->
+        <div class="filter-tabs animate__animated animate__fadeIn animate__delay-2s">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="excel">Excel & Analysis</button>
+            <button class="filter-btn" data-filter="visualization">Data Visualization</button>
+            <button class="filter-btn" data-filter="python">Python & R</button>
+            <button class="filter-btn" data-filter="consulting">Consulting</button>
+        </div>
+    </section>
+
+    <!-- Main Projects Section -->
+    <section class="projects-main">
+        <div class="projects-grid" id="projectsGrid">
+            <!-- Featured Project -->
+            <div class="project-card-full featured-project" data-category="visualization excel">
+                <div class="featured-badge">Featured</div>
+                <div class="project-image-full">
+                    <div class="project-image-full placeholder">
+                        <i class="fas fa-credit-card"></i>
+                        <span class="coming-soon">Mastercard Forage</span>
+                    </div>
+                    <div class="project-overlay">
+                        <div class="project-links">
+                            <a href="#" class="btn primary-btn"><i class="fab fa-github"></i> Dataset</a>
+                            <a href="#" class="btn secondary-btn"><i class="fas fa-presentation"></i> Presentation</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info-full">
+                    <h3>Mastercard Data & Services Job Simulation</h3>
+                    <span class="project-status status-completed">Completed</span>
+                    <p>Analyzed transaction trends and customer behavior to deliver data-driven insights for client presentation. Identified weekend transaction volume drops and e-commerce opportunities, recommending strategic loyalty incentives based on customer segments.</p>
+                    <div class="project-tags-full">
+                        <span>Excel</span>
+                        <span>PowerPoint</span>
+                        <span>Data Cleaning</span>
+                        <span>Business Storytelling</span>
+                        <span>Customer Analysis</span>
+                    </div>
+                    <div class="project-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-building"></i>
+                            <span>Forage Platform</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-chart-line"></i>
+                            <span>6-Slide Deck</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 1 -->
+            <div class="project-card-full" data-category="excel">
+                <div class="project-image-full">
+                    <div class="project-image-full placeholder">
+                        <i class="fas fa-users-cog"></i>
+                        <span class="coming-soon">Deloitte Consulting</span>
+                    </div>
+                    <div class="project-overlay">
+                        <div class="project-links">
+                            <a href="#" class="btn primary-btn"><i class="fas fa-file-powerpoint"></i> Proposal</a>
+                            <a href="#" class="btn secondary-btn"><i class="fas fa-eye"></i> Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info-full">
+                    <h3>Deloitte Technology Consulting Virtual Internship</h3>
+                    <span class="project-status status-completed">Completed</span>
+                    <p>Worked as a Technology Consultant to evaluate client challenges and propose technology-driven solutions. Recommended Microsoft Power BI for efficient reporting and scalability, justifying selection based on user-friendly dashboards and enterprise integration.</p>
+                    <div class="project-tags-full">
+                        <span>PowerPoint</span>
+                        <span>MS Office</span>
+                        <span>Consulting</span>
+                        <span>Power BI</span>
+                        <span>Business Analysis</span>
+                    </div>
+                    <div class="project-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-building"></i>
+                            <span>Forage Platform</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-handshake"></i>
+                            <span>Client Ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card-full" data-category="visualization">
+                <div class="project-image-full">
+                    <div class="project-image-full placeholder">
+                        <i class="fas fa-chart-bar"></i>
+                        <span class="coming-soon">TCS Data Viz</span>
+                    </div>
+                    <div class="project-overlay">
+                        <div class="project-links">
+                            <a href="#" class="btn primary-btn"><i class="fas fa-chart-line"></i> Dashboard</a>
+                            <a href="#" class="btn secondary-btn"><i class="fas fa-presentation"></i> Slides</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info-full">
+                    <h3>TCS Data Visualization Job Simulation</h3>
+                    <span class="project-status status-completed">Completed</span>
+                    <p>Helped TCS clients extract meaningful insights through effective data visualization using Tableau. Highlighted regional sales discrepancies, suggested marketing focus on underperforming regions, and created actionable dashboards with key KPIs.</p>
+                    <div class="project-tags-full">
+                        <span>Tableau</span>
+                        <span>Excel</span>
+                        <span>PowerPoint</span>
+                        <span>Data Visualization</span>
+                        <span>KPI Analysis</span>
+                    </div>
+                    <div class="project-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-building"></i>
+                            <span>Forage Platform</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-filter"></i>
+                            <span>Interactive Filters</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3 - Coming Soon -->
+            <div class="project-card-full" data-category="python sql">
+                <div class="project-image-full">
+                    <div class="project-image-full placeholder">
+                        <i class="fas fa-heartbeat"></i>
+                        <span class="coming-soon">Fitbit Analysis</span>
+                    </div>
+                    <div class="project-overlay">
+                        <div class="project-links">
+                            <a href="#" class="btn primary-btn"><i class="fab fa-r-project"></i> R Code</a>
+                            <a href="#" class="btn secondary-btn"><i class="fas fa-database"></i> SQL</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info-full">
+                    <h3>Fitbit Product Usage Analysis</h3>
+                    <span class="project-status status-progress">In Progress</span>
+                    <p>Analyzing Fitbit fitness tracker data to uncover product usage patterns and suggest marketing strategies. Part of the Google Data Analytics Certificate capstone project focusing on user behavior and engagement metrics.</p>
+                    <div class="project-tags-full">
+                        <span>R</span>
+                        <span>tidyverse</span>
+                        <span>ggplot2</span>
+                        <span>SQL</span>
+                        <span>Excel</span>
+                        <span>Google Analytics</span>
+                    </div>
+                    <div class="project-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>Q1 2025</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Capstone Project</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4 - Real Estate -->
+            <div class="project-card-full" data-category="python visualization">
+                <div class="project-image-full">
+                    <div class="project-image-full placeholder">
+                        <i class="fas fa-building"></i>
+                        <span class="coming-soon">Real Estate ROI</span>
+                    </div>
+                    <div class="project-overlay">
+                        <div class="project-links">
+                            <a href="#" class="btn primary-btn"><i class="fab fa-github"></i> Code</a>
+                            <a href="#" class="btn secondary-btn"><i class="fas fa-map-marked-alt"></i> Analysis</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info-full">
+                    <h3>Top Investment Locations in Gauteng: Real Estate ROI Analysis</h3>
+                    <span class="project-status status-planned">Planned</span>
+                    <p>Comprehensive analysis to identify best-performing real estate areas in Gauteng based on rental yield, price appreciation, and demand trends. Includes risk assessment with crime rates and economic development indicators.</p>
+                    <div class="project-tags-full">
+                        <span>Python</span>
+                        <span>Real Estate Analysis</span>
+                        <span>ROI Calculation</span>
+                        <span>Market Research</span>
+                        <span>Risk Assessment</span>
+                        <span>Data Visualization</span>
+                    </div>
+                    <div class="project-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>Q2 2025</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-chart-line"></i>
+                            <span>10-Year Analysis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="center-btn">
+            <a href="contact.html" class="btn primary-btn">Interested in Collaboration? <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>Shawn Olivier</h3>
+                <p>Data Analyst</p>
+                <p>vhoshawn@gmail.com</p>
+                <p>076 031 9528</p>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/yourusername" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/yourusername" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/yourusername" target="_blank"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Shawn Olivier. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script>
+        // Mobile navigation
+        const burger = document.querySelector('.burger');
+        const navLinks = document.querySelector('.nav-links');
+
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card-full');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    if (filter === 'all') {
+                        card.style.display = 'block';
+                        // Re-trigger animation
+                        card.style.animation = 'none';
+                        card.offsetHeight; // Trigger reflow
+                        card.style.animation = 'fadeInUp 0.6s forwards';
+                    } else {
+                        const categories = card.getAttribute('data-category');
+                        if (categories && categories.includes(filter)) {
+                            card.style.display = 'block';
+                            // Re-trigger animation
+                            card.style.animation = 'none';
+                            card.offsetHeight; // Trigger reflow
+                            card.style.animation = 'fadeInUp 0.6s forwards';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
